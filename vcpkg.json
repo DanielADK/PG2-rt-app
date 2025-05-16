@@ -1,0 +1,14 @@
+{
+  "name": "pg2-semestral",
+  "version": "1.0",
+  "dependencies": [
+    "glew",
+    "glfw3",
+    "glm",
+    {
+      "name": "imgui",
+      "features": [ "docking-experimental", "glfw-binding", "opengl3-binding" ]
+    },
+    "nlohmann-json"
+  ]
+}

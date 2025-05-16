@@ -1,0 +1,9 @@
+{
+  "antialiasing": true,
+  "vsync": true,
+  "fullscreen": false,
+  "freecam": false,
+  "flashlight": false,
+  "window_width": 1200,
+  "window_height": 800
+}
