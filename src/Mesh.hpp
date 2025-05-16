@@ -83,8 +83,7 @@ public:
             glUniform1i(glGetUniformLocation(shader.ID, "tex0"), 0); // Set texture unit in fragment shader
         }
         
-        //TODO: draw mesh: bind vertex array object, draw all elements with selected primitive type 
-        glBindVertexArray(VAO);        
+        glBindVertexArray(VAO);
         
         glDrawElements(primitive_type, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
         //glDrawArrays(primitive_type, 0, vertices.size()); 

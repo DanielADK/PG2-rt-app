@@ -9,6 +9,8 @@
 
 #include <vector>
 
+#include "Logger.hpp"
+
 // set uniform according to name 
 // https://docs.gl/gl4/glUniform
 
@@ -37,7 +39,6 @@ void ShaderProgram::setUniform(const std::string& name, const float val) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, const int val) {
-    // TODO: implement ->done?
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -47,7 +48,6 @@ void ShaderProgram::setUniform(const std::string& name, const int val) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, const double val) {
-	// TODO: implement ->done?
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -56,9 +56,7 @@ void ShaderProgram::setUniform(const std::string& name, const double val) {
 	glUniform1d(loc, val);
 }
 
-void ShaderProgram::setUniform(const std::string& name, const glm::vec3 val)
-{
-    //TODO: get location ->done?
+void ShaderProgram::setUniform(const std::string& name, const glm::vec3 val) {
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -68,7 +66,6 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec3 val)
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec4 in_vec4) {
-    // TODO: implement ->done?
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -77,9 +74,7 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec4 in_vec4)
 	glUniform4fv(loc, 1, glm::value_ptr(in_vec4));
 }
 
-void ShaderProgram::setUniform(const std::string& name, const glm::mat3 val)
-{
-    //TODO: get location ->done?
+void ShaderProgram::setUniform(const std::string& name, const glm::mat3 val) {
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -89,7 +84,6 @@ void ShaderProgram::setUniform(const std::string& name, const glm::mat3 val)
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::mat4 val) {
-    // TODO: implement ->done?
 	auto loc = glGetUniformLocation(ID, name.c_str());
 	if (loc == -1) {
 		std::cerr << "no uniform with name:" << name << '\n';
@@ -98,9 +92,7 @@ void ShaderProgram::setUniform(const std::string& name, const glm::mat4 val) {
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(val));
 }
 
-std::string ShaderProgram::getShaderInfoLog(const GLuint obj)
-{
-    // TODO: implement ->done?
+std::string ShaderProgram::getShaderInfoLog(const GLuint obj) {
 	int infoLogLength = 0;
 	std::string s;
 	glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &infoLogLength);
@@ -113,8 +105,7 @@ std::string ShaderProgram::getShaderInfoLog(const GLuint obj)
 
 }
 
-std::string ShaderProgram::getProgramInfoLog(const GLuint obj)
-{
+std::string ShaderProgram::getProgramInfoLog(const GLuint obj) {
 	int infoLogLength = 0;
 	std::string s;
 	glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &infoLogLength);
@@ -124,7 +115,6 @@ std::string ShaderProgram::getProgramInfoLog(const GLuint obj)
 		s.assign(begin(v), end(v));
 	}
 	return s;
-	// TODO: implement, check for result, print info & throw error (if any) ->done?
 
 }
 
@@ -148,26 +138,21 @@ GLuint ShaderProgram::compile_shader(const std::filesystem::path& source_file, c
 	GLint cmpl_status;
 	glGetShaderiv(shader_h, GL_COMPILE_STATUS, &cmpl_status);
 	if (cmpl_status == GL_FALSE) {
-		std::cerr << "Shader compilation failed for " << source_file << ":\n"
-			<< getShaderInfoLog(shader_h);
-		//std::cerr << getShaderInfoLog(shader_h);
+		Logger::error("Shader compilation failed for " + std::string(source_file) + ":\n" + getShaderInfoLog(shader_h));
 		throw std::runtime_error("Shader compile err.\n");
 	}
-    // TODO: implement ->done?
 
 	return shader_h;
 }
 
-GLuint ShaderProgram::link_shader(const std::vector<GLuint> shader_ids)
-{
+GLuint ShaderProgram::link_shader(const std::vector<GLuint> shader_ids) {
 	GLuint prog_h = glCreateProgram();
 
-	for (auto const id : shader_ids) {//I added "auto" just to try !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	for (auto const id : shader_ids) {
 		glAttachShader(prog_h, id);
 	}
 
 	glLinkProgram(prog_h);
-	 // TODO: implement: check link result, print info & throw error (if any)
 
 	// check link result, display error (if any) ->done?
 	GLint status;
@@ -180,8 +165,7 @@ GLuint ShaderProgram::link_shader(const std::vector<GLuint> shader_ids)
 	
 }
 
-std::string ShaderProgram::textFileRead(const std::filesystem::path & filename)
-{
+std::string ShaderProgram::textFileRead(const std::filesystem::path & filename) {
 	std::ifstream file(filename);
 	if (!file.is_open())
 		throw std::runtime_error("Error opening file.\n");
