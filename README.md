@@ -1,4 +1,4 @@
-
+Made on Linux, Ubuntu, Nvidia GeForce GTX 1650, OpenGL 4.6
 
 - [x]  3D GL Core profile + shaders version 4.6, GL debug enabled, JSON config file
 - [x]  high performance => at least 60 FPS (display FPS)
