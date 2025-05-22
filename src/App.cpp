@@ -1,16 +1,12 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-
-#include "App.hpp"
-
-
-// vypisování HUDu
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <fstream>
 #include <thread>
 
+#include "App.hpp"
 #include "Collision.hpp"
 #include "gl_err_callback.hpp"
 #include "Logger.hpp"
